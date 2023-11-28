@@ -1,5 +1,5 @@
-Part 2:
-What are all the types of pokemon that a pokemon can have?
+# Part 2:
+# What are all the types of pokemon that a pokemon can have?
     SELECT COUNT(*) FROM types;
     There are 18 types a pokemon can have.
     SELECT COLUMNS FROM pokemon;
