@@ -1,0 +1,30 @@
+Part 2:
+What are all the types of pokemon that a pokemon can have?
+    SELECT COUNT(*) FROM types;
+    There are 18 types a pokemon can have.
+    SELECT COLUMNS FROM pokemon;
+    A pokemon can have a primary and a secondary type.
+    Pairs = n(n-1)/2 or (18)(18-1)/2 = 153
+    So 153 types can be created considering primary and secondary.
+What is the name of the pokemon with id 45?
+    SELECT name FROM pokemons WHERE id = 45;
+    Eevee
+How many pokemon are there?
+    SELECT COUNT(*) FROM pokemons;
+How many types are there?
+    From first answer...
+    A pokemon can have a primary and a secondary type.
+    Pairs = n(n-1)/2 or (18)(18-1)/2 = 153
+    So 153 types can be created considering primary and secondary.
+How many pokemon have a secondary type?
+    SELECT COUNT(*) FROM pokemons WHERE secondary_type IS NOT NULL;
+    316
+
+Part 3:
+What is each pokemon's primary type?
+What is Rufflet's secondary type?
+What are the names of the pokemon that belong to the trainer with trainerID 303?
+How many pokemon have a secondary type Poison
+What are all the primary types and how many pokemon have that type?
+How many pokemon at level 100 does each trainer with at least one level 100 pokemone have? (Hint: your query should not display a trainer
+How many pokemon only belong to one trainer and no other?
