@@ -41,6 +41,4 @@ How many pokemon have a secondary type Poison?
     ON p.secondary_type = t.id
     WHERE t.name = 'Poison';
 
-What are all the primary types and how many pokemon have that type?
-How many pokemon at level 100 does each trainer with at least one level 100 pokemone have? (Hint: your query should not display a trainer
-How many pokemon only belong to one trainer and no other?
+I see these need to go in SQL files too, moving the rest of the stuff to there and this as well.

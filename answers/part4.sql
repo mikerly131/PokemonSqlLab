@@ -1,5 +1,6 @@
 -- Write a query that returns a bunch of stuff and sort it by an arbitrary decision
 -- Stuff: Pokemon Name, Trainer Name, Pokemon Current Level, Pokemon Primary Type, Pokemon Secondary Type
+-- Explain Sort:  Strongest trainer is one with highest avg level and hit points for pokemon, with most pokemon
 
 SELECT p.name as 'Pokemon Name' , t.trainername as 'Trainer Name', pt.pokelevel as 'Level', tp.name as 'Primary Type',
 typ.name as 'Secondary Type', s1.avg_power as 'Average Power', s3.avg_hp as 'Average HP', s2.poke_count as 'Total Pokemon'
@@ -20,6 +21,7 @@ INNER JOIN (SELECT COUNT(*) as poke_count, trainerID FROM pokemon_trainer GROUP 
 ON pt.trainerID = s2.trainerID
 ORDER BY avg_power DESC, poke_count DESC, avg_hp DESC;
 
+-- Left overs from trying out a bunch of query structures
 
 -- ORDER BY total_level;
 
