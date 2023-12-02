@@ -13,11 +13,17 @@ JOIN types as tp
 ON p.primary_type = tp.id
 LEFT JOIN types as typ
 ON p.secondary_type = typ.id
-INNER JOIN (SELECT AVG(pokelevel) as avg_power, trainerID FROM pokemon_trainer GROUP BY trainerID) as s1
+INNER JOIN (SELECT AVG(pokelevel) as avg_power, trainerID
+            FROM pokemon_trainer
+            GROUP BY trainerID) as s1
 ON pt.trainerID = s1.trainerID
-INNER JOIN (SELECT AVG(hp) as avg_hp, trainerID FROM pokemon_trainer GROUP BY trainerID) as s3
+INNER JOIN (SELECT AVG(hp) as avg_hp, trainerID
+            FROM pokemon_trainer
+            GROUP BY trainerID) as s3
 ON pt.trainerID = s3.trainerID
-INNER JOIN (SELECT COUNT(*) as poke_count, trainerID FROM pokemon_trainer GROUP BY trainerID) as s2
+INNER JOIN (SELECT COUNT(*) as poke_count, trainerID
+            FROM pokemon_trainer
+            GROUP BY trainerID) as s2
 ON pt.trainerID = s2.trainerID
 ORDER BY avg_power DESC, poke_count DESC, avg_hp DESC;
 

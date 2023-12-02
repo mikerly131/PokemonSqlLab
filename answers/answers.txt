@@ -6,6 +6,9 @@
     A pokemon can have a primary and a secondary type.
     Pairs = n(n-1)/2 or (18)(18-1)/2 = 153
     So 153 types can be created considering primary and secondary.
+
+
+
 What is the name of the pokemon with id 45?
     SELECT name FROM pokemons WHERE id = 45;
     Eevee
