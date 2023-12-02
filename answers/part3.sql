@@ -13,12 +13,19 @@ WHERE p.name = 'Rufflet';
 
 -- What are the names of the pokemon that belong to the trainer with trainerID 303?
 SELECT p.name as 'Pokemon - Trainer 303'
-FROM trainers as t
-LEFT JOIN pokemon_trainer as pt
-ON t.trainerID = pt.trainerID
+FROM pokemon_trainer as pt
 LEFT JOIN pokemons as p
 ON pt.pokemon_id = p.id
-WHERE t.trainerID = 303;
+WHERE pt.trainerID = 303;
+
+-- Works but has an extra unnecessary join
+--SELECT p.name as 'Pokemon - Trainer 303'
+--FROM trainers as t
+--LEFT JOIN pokemon_trainer as pt
+--ON t.trainerID = pt.trainerID
+--LEFT JOIN pokemons as p
+--ON pt.pokemon_id = p.id
+--WHERE t.trainerID = 303;
 
 
 -- How many pokemon have a secondary type Poison?

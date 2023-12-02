@@ -1,9 +1,10 @@
 -- Write a query that returns a bunch of stuff and sort it by an arbitrary decision
 -- Stuff: Pokemon Name, Trainer Name, Pokemon Current Level, Pokemon Primary Type, Pokemon Secondary Type
--- Explain Sort:  Strongest trainer is one with highest avg level and hit points for pokemon, with most pokemon
+-- Explain Sort:  Strongest trainer is one with best power diff,
+--                which is power + hit points for pokemon / pokemon count
 
 SELECT p.name as 'Pokemon Name' , t.trainername as 'Trainer Name', pt.pokelevel as 'Level', tp.name as 'Primary Type',
-typ.name as 'Secondary Type', s1.avg_power as 'Average Power', s3.avg_hp as 'Average HP', s2.poke_count as 'Total Pokemon'
+typ.name as 'Secondary Type'
 FROM pokemons as p
 JOIN pokemon_trainer as pt
 ON p.id = pt.pokemon_id
@@ -13,7 +14,7 @@ JOIN types as tp
 ON p.primary_type = tp.id
 LEFT JOIN types as typ
 ON p.secondary_type = typ.id
-INNER JOIN (SELECT AVG(pokelevel) as avg_power, trainerID
+INNER JOIN (SELECT AVG(attack) as avg_power, trainerID
             FROM pokemon_trainer
             GROUP BY trainerID) as s1
 ON pt.trainerID = s1.trainerID
@@ -25,7 +26,94 @@ INNER JOIN (SELECT COUNT(*) as poke_count, trainerID
             FROM pokemon_trainer
             GROUP BY trainerID) as s2
 ON pt.trainerID = s2.trainerID
-ORDER BY avg_power DESC, poke_count DESC, avg_hp DESC;
+ORDER BY ((s1.avg_power + s3.avg_hp) * s2.poke_count) DESC;
+
+
+
+
+-- This is what I want, but now I need to only show the 5 columns
+--SELECT p.name as 'Pokemon Name' , t.trainername as 'Trainer Name', pt.pokelevel as 'Level', tp.name as 'Primary Type',
+--typ.name as 'Secondary Type', s1.avg_power as 'Average Power', s3.avg_hp as 'Average HP', s2.poke_count as 'Total Pokemon',
+--(s1.avg_power + s3.avg_hp) * s2.poke_count as 'Trainer Power Diff'
+--FROM pokemons as p
+--JOIN pokemon_trainer as pt
+--ON p.id = pt.pokemon_id
+--JOIN trainers as t
+--ON pt.trainerID = t.trainerID
+--JOIN types as tp
+--ON p.primary_type = tp.id
+--LEFT JOIN types as typ
+--ON p.secondary_type = typ.id
+--INNER JOIN (SELECT AVG(attack) as avg_power, trainerID
+--            FROM pokemon_trainer
+--            GROUP BY trainerID) as s1
+--ON pt.trainerID = s1.trainerID
+--INNER JOIN (SELECT AVG(hp) as avg_hp, trainerID
+--            FROM pokemon_trainer
+--            GROUP BY trainerID) as s3
+--ON pt.trainerID = s3.trainerID
+--INNER JOIN (SELECT COUNT(*) as poke_count, trainerID
+--            FROM pokemon_trainer
+--            GROUP BY trainerID) as s2
+--ON pt.trainerID = s2.trainerID
+--ORDER BY ((s1.avg_power + s3.avg_hp) * s2.poke_count) DESC;
+
+
+
+-- Not what I want, want a total power for a trainer based on the attack and hp, then sort by it
+--SELECT p.name as 'Pokemon Name' , t.trainername as 'Trainer Name', pt.pokelevel as 'Level', tp.name as 'Primary Type',
+--typ.name as 'Secondary Type', s1.avg_power as 'Average Power', s3.avg_hp as 'Average HP', s2.poke_count as 'Total Pokemon',
+--((361 - pt.attack) + (501 - pt.defense) + (271-pt.speed)) / (s3.avg_hp * s2.poke_count)as 'Power Diffs'
+--FROM pokemons as p
+--JOIN pokemon_trainer as pt
+--ON p.id = pt.pokemon_id
+--JOIN trainers as t
+--ON pt.trainerID = t.trainerID
+--JOIN types as tp
+--ON p.primary_type = tp.id
+--LEFT JOIN types as typ
+--ON p.secondary_type = typ.id
+--INNER JOIN (SELECT AVG(pokelevel) as avg_power, trainerID
+--            FROM pokemon_trainer
+--            GROUP BY trainerID) as s1
+--ON pt.trainerID = s1.trainerID
+--INNER JOIN (SELECT AVG(hp) as avg_hp, trainerID
+--            FROM pokemon_trainer
+--            GROUP BY trainerID) as s3
+--ON pt.trainerID = s3.trainerID
+--INNER JOIN (SELECT COUNT(*) as poke_count, trainerID
+--            FROM pokemon_trainer
+--            GROUP BY trainerID) as s2
+--ON pt.trainerID = s2.trainerID
+--ORDER BY avg_power DESC, poke_count DESC, avg_hp DESC;
+
+
+
+
+--SELECT p.name as 'Pokemon Name' , t.trainername as 'Trainer Name', pt.pokelevel as 'Level', tp.name as 'Primary Type',
+--typ.name as 'Secondary Type', s1.avg_power as 'Average Power', s3.avg_hp as 'Average HP', s2.poke_count as 'Total Pokemon'
+--FROM pokemons as p
+--JOIN pokemon_trainer as pt
+--ON p.id = pt.pokemon_id
+--JOIN trainers as t
+--ON pt.trainerID = t.trainerID
+--JOIN types as tp
+--ON p.primary_type = tp.id
+--LEFT JOIN types as typ
+--ON p.secondary_type = typ.id
+--INNER JOIN (SELECT AVG(pokelevel) as avg_power, trainerID
+--            FROM pokemon_trainer
+--            GROUP BY trainerID) as s1
+--ON pt.trainerID = s1.trainerID
+--INNER JOIN (SELECT AVG(hp) as avg_hp, trainerID
+--            FROM pokemon_trainer
+--            GROUP BY trainerID) as s3
+--ON pt.trainerID = s3.trainerID
+--INNER JOIN (SELECT COUNT(*) as poke_count, trainerID
+--            FROM pokemon_trainer
+--            GROUP BY trainerID) as s2
+--ON pt.trainerID = s2.trainerID
+--ORDER BY avg_power DESC, poke_count DESC, avg_hp DESC;
 
 -- Left overs from trying out a bunch of query structures
 
