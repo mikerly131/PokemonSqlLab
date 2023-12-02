@@ -1,7 +1,7 @@
 -- Write a query that returns a bunch of stuff and sort it by an arbitrary decision
 -- Stuff: Pokemon Name, Trainer Name, Pokemon Current Level, Pokemon Primary Type, Pokemon Secondary Type
 -- Explain Sort:  Strongest trainer is one with best power diff,
---                which is power + hit points for pokemon / pokemon count
+--                which is avg power of pokemon + hit points for pokemon * pokemon count
 
 SELECT p.name as 'Pokemon Name' , t.trainername as 'Trainer Name', pt.pokelevel as 'Level', tp.name as 'Primary Type',
 typ.name as 'Secondary Type'
